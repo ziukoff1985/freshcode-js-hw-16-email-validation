@@ -32,7 +32,7 @@ inputConfigData.forEach(({ type, name, placeholder, attributes }) => {
     }
 
     const inputGroupDiv = document.createElement('div');
-    inputGroupDiv.classList.add('input-group', `input-group-${name}`);
+    inputGroupDiv.classList.add('input-group');
 
     inputWrapDiv.append(inputGroupDiv);
     inputGroupDiv.append(input);
@@ -96,7 +96,7 @@ btnWrapDiv.append(cancelButton);
 
 // DOM - email validation
 const emailInput = document.querySelector('input[name="email"]');
-const inputGroupEmail = emailInput.closest('.input-group-email');
+const inputGroupEmail = emailInput.closest('.input-group');
 
 const emailRegex = /^\w+\.?-?\w+@[a-z]{3,8}\.[a-z]{2,5}$/i;
 
