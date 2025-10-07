@@ -31,7 +31,10 @@ inputConfigData.forEach(({ type, name, placeholder, attributes }) => {
         }
     }
 
-    inputWrapDiv.append(input);
+    const inputGroupDiv = document.createElement('div');
+    inputGroupDiv.classList.add('input-group');
+    inputWrapDiv.append(inputGroupDiv);
+    inputGroupDiv.append(input);
 });
 
 radioConfigData.forEach(({ id, label, paragraphText }) => {
@@ -93,6 +96,24 @@ btnWrapDiv.append(cancelButton);
 // DOM - email validation
 const emailInput = document.querySelector('input[name="email"]');
 console.log(emailInput);
+
+const emailRegex = /^\w+\.?-?\w+@[a-z]{3,8}\.[a-z]{2,5}$/i;
+
+const errorMessage = document.createElement('div');
+errorMessage.classList.add('error-message');
+errorMessage.textContent = 'INVALID EMAIL';
+emailInput.insertAdjacentElement('afterend', errorMessage);
+
+function validateEmail(event) {
+    console.log(event.target.value);
+
+    const email = event.target.value;
+
+    const result = emailRegex.test(email) ? 'valid' : 'invalid';
+    console.log(result);
+}
+
+emailInput.addEventListener('change', validateEmail);
 
 // // DOM - events creation
 // class Person {
