@@ -14,6 +14,11 @@ const h1 = document.createElement('h1');
 h1.textContent = 'CREATE AN ACCOUNT';
 form.append(h1);
 
+const formParagraph = document.createElement('p');
+formParagraph.textContent =
+    'We always keep your name and email address private';
+form.append(formParagraph);
+
 const inputWrapDiv = document.createElement('div');
 inputWrapDiv.classList.add('inputs-wrapper');
 form.append(inputWrapDiv);
@@ -33,7 +38,6 @@ inputConfigData.forEach(({ type, name, placeholder, attributes }) => {
 
     const inputGroupDiv = document.createElement('div');
     inputGroupDiv.classList.add('input-group');
-
     inputWrapDiv.append(inputGroupDiv);
     inputGroupDiv.append(input);
 });
@@ -122,7 +126,7 @@ function validateEmail(event) {
 
 emailInput.addEventListener('input', validateEmail);
 
-// // DOM - events creation
+// DOM - form submission
 class Person {
     constructor(...args) {
         args.forEach(({ name, value }) => {
@@ -133,28 +137,30 @@ class Person {
 
 function onSubmitForm(event) {
     event.preventDefault();
-    const formInputs = [...document.querySelectorAll('input')].filter(
-        ({ name, value, type }) =>
-            name && value.trim() && type !== 'checkbox' && type !== 'radio'
-    );
-
-    const person = new Person(...formInputs);
-
-    if (!person.lastName) {
-        console.log('Cannot save: Last Name is required and cannot be empty');
-        return;
-    }
-
-    const personJson = JSON.stringify(
-        person,
-        (key, value) =>
-            key === 'password' || key === 'passwordConfirmation'
-                ? undefined
-                : value,
-        2
-    );
-
     if (isValidEmail) {
+        const formInputs = [...document.querySelectorAll('input')].filter(
+            ({ name, value, type }) =>
+                name && value.trim() && type !== 'checkbox' && type !== 'radio'
+        );
+
+        const person = new Person(...formInputs);
+
+        if (!person.lastName) {
+            console.log(
+                'Cannot save: Last Name is required and cannot be empty'
+            );
+            return;
+        }
+
+        const personJson = JSON.stringify(
+            person,
+            (key, value) =>
+                key === 'password' || key === 'passwordConfirmation'
+                    ? undefined
+                    : value,
+            2
+        );
+
         localStorage.setItem(person.lastName, personJson);
         form.reset();
     }
