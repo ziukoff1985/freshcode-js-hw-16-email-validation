@@ -64,21 +64,23 @@ form > p {
     transition: all 0.3s ease-in-out;
 }
 
-.inputs-wrapper > input:hover,
-.inputs-wrapper > input:active,
-.inputs-wrapper > input:focus {
+.input-group > input:hover,
+.input-group > input:active,
+.input-group > input:focus {
     box-shadow: inset 0 0 3px 3px rgb(0, 208, 163);
 }
 
-.inputs-wrapper > input::placeholder {
+.input-group > input::placeholder {
     font-size: var(--bigger-paragraph);
     color: rgb(169, 169, 169);
 }
 
 .error-message {
     text-align: center;
+    line-height: 1;
     color: rgb(173, 45, 45);
-    font-size: var(--smaller-paragraph);
+    font-size: var(--bigger-paragraph);
+    font-weight: bold;
     background-color: #ffffff;
     border-radius: var(--border-radius);
     height: 0;
@@ -88,7 +90,7 @@ form > p {
 }
 
 .visible {
-    height: auto;
+    height: 25px;
     padding: 5px;
     opacity: 1;
     outline: 3px solid rgb(187, 74, 74);
