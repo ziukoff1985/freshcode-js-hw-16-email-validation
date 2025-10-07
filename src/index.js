@@ -2,7 +2,7 @@
 
 import { inputConfigData, radioConfigData } from './configData.js';
 
-// DOM - elements creation
+// HW 24 Create form by JS
 const container = document.createElement('div');
 container.classList.add('container');
 document.body.prepend(container);
@@ -98,7 +98,7 @@ cancelButton.setAttribute('type', 'reset');
 cancelButton.textContent = 'Cancel';
 btnWrapDiv.append(cancelButton);
 
-// DOM - email validation
+// HW 26 Email validation
 const emailInput = document.querySelector('input[name="email"]');
 const inputGroupEmail = emailInput.closest('.input-group');
 
@@ -117,16 +117,19 @@ function validateEmail(event) {
 
     if (!isValid) {
         errorMessage.classList.add('visible');
+        emailInput.classList.add('invalid');
         isValidEmail = false;
     } else {
         errorMessage.classList.remove('visible');
+        emailInput.classList.remove('invalid');
+
         isValidEmail = true;
     }
 }
 
 emailInput.addEventListener('input', validateEmail);
 
-// DOM - form submission
+// HW 25 Collect props
 class Person {
     constructor(...args) {
         args.forEach(({ name, value }) => {
