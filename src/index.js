@@ -97,9 +97,10 @@ btnWrapDiv.append(cancelButton);
 // DOM - email validation
 const emailInput = document.querySelector('input[name="email"]');
 const inputGroupEmail = emailInput.closest('.input-group-email');
-console.log(inputGroupEmail);
 
 const emailRegex = /^\w+\.?-?\w+@[a-z]{3,8}\.[a-z]{2,5}$/i;
+
+let isValidEmail = false;
 
 const errorMessage = document.createElement('div');
 errorMessage.classList.add('error-message');
@@ -112,8 +113,10 @@ function validateEmail(event) {
 
     if (!isValid) {
         errorMessage.classList.add('visible');
+        isValidEmail = false;
     } else {
         errorMessage.classList.remove('visible');
+        isValidEmail = true;
     }
 }
 
@@ -151,8 +154,10 @@ function onSubmitForm(event) {
         2
     );
 
-    localStorage.setItem(person.lastName, personJson);
-    form.reset();
+    if (isValidEmail) {
+        localStorage.setItem(person.lastName, personJson);
+        form.reset();
+    }
 }
 
 form.addEventListener('submit', onSubmitForm);
