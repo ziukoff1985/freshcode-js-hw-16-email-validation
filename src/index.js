@@ -32,7 +32,8 @@ inputConfigData.forEach(({ type, name, placeholder, attributes }) => {
     }
 
     const inputGroupDiv = document.createElement('div');
-    inputGroupDiv.classList.add('input-group');
+    inputGroupDiv.classList.add('input-group', `input-group-${name}`);
+
     inputWrapDiv.append(inputGroupDiv);
     inputGroupDiv.append(input);
 });
@@ -95,60 +96,63 @@ btnWrapDiv.append(cancelButton);
 
 // DOM - email validation
 const emailInput = document.querySelector('input[name="email"]');
-console.log(emailInput);
+const inputGroupEmail = emailInput.closest('.input-group-email');
+console.log(inputGroupEmail);
 
 const emailRegex = /^\w+\.?-?\w+@[a-z]{3,8}\.[a-z]{2,5}$/i;
 
 const errorMessage = document.createElement('div');
 errorMessage.classList.add('error-message');
-errorMessage.textContent = 'INVALID EMAIL';
-emailInput.insertAdjacentElement('afterend', errorMessage);
+errorMessage.textContent = 'INVALID EMAIL FORMAT';
+inputGroupEmail.append(errorMessage);
 
 function validateEmail(event) {
-    console.log(event.target.value);
-
     const email = event.target.value;
+    const isValid = emailRegex.test(email);
 
-    const result = emailRegex.test(email) ? 'valid' : 'invalid';
-    console.log(result);
+    if (!isValid) {
+        errorMessage.classList.add('visible');
+    } else {
+        errorMessage.classList.remove('visible');
+    }
 }
 
-emailInput.addEventListener('change', validateEmail);
+emailInput.addEventListener('input', validateEmail);
 
 // // DOM - events creation
-// class Person {
-//     constructor(...args) {
-//         args.forEach(({ name, value }) => {
-//             this[name] = value.trim();
-//         });
-//     }
-// }
+class Person {
+    constructor(...args) {
+        args.forEach(({ name, value }) => {
+            this[name] = value.trim();
+        });
+    }
+}
 
-// function onSubmitForm(event) {
-//     event.preventDefault();
-//     const formInputs = [...document.querySelectorAll('input')].filter(
-//         ({ name, value, type }) =>
-//             name && value.trim() && type !== 'checkbox' && type !== 'radio'
-//     );
+function onSubmitForm(event) {
+    event.preventDefault();
+    const formInputs = [...document.querySelectorAll('input')].filter(
+        ({ name, value, type }) =>
+            name && value.trim() && type !== 'checkbox' && type !== 'radio'
+    );
 
-//     const person = new Person(...formInputs);
+    const person = new Person(...formInputs);
 
-//     if (!person.lastName) {
-//         console.log('Cannot save: Last Name is required and cannot be empty');
-//         return;
-//     }
+    if (!person.lastName) {
+        console.log('Cannot save: Last Name is required and cannot be empty');
+        return;
+    }
 
-//     const personJson = JSON.stringify(
-//         person,
-//         (key, value) =>
-//             key === 'password' || key === 'passwordConfirmation'
-//                 ? undefined
-//                 : value,
-//         2
-//     );
+    const personJson = JSON.stringify(
+        person,
+        (key, value) =>
+            key === 'password' || key === 'passwordConfirmation'
+                ? undefined
+                : value,
+        2
+    );
 
-//     localStorage.setItem(person.lastName, personJson);
-//     form.reset();
-// }
+    localStorage.setItem(person.lastName, personJson);
+    form.reset();
+}
 
-// form.addEventListener('submit', onSubmitForm);
+form.addEventListener('submit', onSubmitForm);
