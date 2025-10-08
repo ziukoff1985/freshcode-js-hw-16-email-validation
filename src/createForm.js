@@ -4,7 +4,6 @@ import { createElementWithClass } from './helpers.js';
 export const container = createElementWithClass(
     'div',
     'container',
-
     document.body
 );
 export const form = createElementWithClass('form', null, container);
