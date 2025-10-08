@@ -27,10 +27,10 @@ export function setupEmailValidation(emailSelector) {
 
         if (!isValid) {
             errorMessage.classList.add('visible');
-            errorMessage.classList.add('invalid');
+            emailInput.classList.add('invalid');
         } else {
             errorMessage.classList.remove('visible');
-            errorMessage.classList.remove('invalid');
+            emailInput.classList.remove('invalid');
         }
     }
     emailInput.addEventListener('input', validateEmail);
