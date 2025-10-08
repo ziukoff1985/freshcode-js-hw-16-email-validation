@@ -57,6 +57,7 @@ form > p {
 
 .input-group > input {
     width: 100%;
+    font-size: var(--bigger-paragraph);
     padding: 20px 15px;
     border: none;
     outline: none;
