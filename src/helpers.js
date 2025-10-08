@@ -1,10 +1,11 @@
-// /**
-//  * Створює елемент, додає клас(и) і приєднує до батьківського елемента.
-//  * @param {string} tag - Назва тегу ('div', 'input', 'button' тощо).
-//  * @param {string | string[]} [className] - Клас або масив класів.
-//  * @param {HTMLElement} [parent] - Батьківський елемент для додавання.
-//  * @returns {HTMLElement} Створений елемент.
-//  */
+/**
+ * Creates an element, adds a class (or classes) and attributes (if provided), and attaches it to the parent element.
+ * @param {string} tag - The name of the tag ('div', 'input', 'button', etc.).
+ * @param {string | string[]} className - The class or an array of classes.
+ * @param {HTMLElement} parent - The parent element to attach the element to.
+ * @param {Object} attributes - An object of attributes to set on the element (null by default).
+ * @returns {HTMLElement} The created element.
+ */
 export function createElementWithClass(
     tag,
     className,
