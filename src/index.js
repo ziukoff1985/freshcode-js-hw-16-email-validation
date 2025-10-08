@@ -102,8 +102,6 @@ btnWrapDiv.append(cancelButton);
 const emailInput = document.querySelector('input[name="email"]');
 const inputGroupEmail = emailInput.closest('.input-group');
 
-const emailRegex = /^\w+\.?-?\w+@[a-z]{3,8}\.[a-z]{2,5}$/i;
-
 let isValidEmail = false;
 
 const errorMessage = document.createElement('div');
@@ -113,17 +111,17 @@ inputGroupEmail.append(errorMessage);
 
 function validateEmail(event) {
     const email = event.target.value;
+    const emailRegex = /^\w+\.?-?\w+@[a-z]{3,8}\.[a-z]{2,5}$/i;
     const isValid = emailRegex.test(email);
+
+    isValidEmail = isValid;
 
     if (!isValid) {
         errorMessage.classList.add('visible');
         emailInput.classList.add('invalid');
-        isValidEmail = false;
     } else {
         errorMessage.classList.remove('visible');
         emailInput.classList.remove('invalid');
-
-        isValidEmail = true;
     }
 }
 
@@ -140,33 +138,30 @@ class Person {
 
 function onSubmitForm(event) {
     event.preventDefault();
-    if (isValidEmail) {
-        const formInputs = [...document.querySelectorAll('input')].filter(
-            ({ name, value, type }) =>
-                name && value.trim() && type !== 'checkbox' && type !== 'radio'
-        );
+    if (!isValidEmail) return;
+    const formInputs = [...document.querySelectorAll('input')].filter(
+        ({ name, value, type }) =>
+            name && value.trim() && type !== 'checkbox' && type !== 'radio'
+    );
 
-        const person = new Person(...formInputs);
+    const person = new Person(...formInputs);
 
-        if (!person.lastName) {
-            console.log(
-                'Cannot save: Last Name is required and cannot be empty'
-            );
-            return;
-        }
-
-        const personJson = JSON.stringify(
-            person,
-            (key, value) =>
-                key === 'password' || key === 'passwordConfirmation'
-                    ? undefined
-                    : value,
-            2
-        );
-
-        localStorage.setItem(person.lastName, personJson);
-        form.reset();
+    if (!person.lastName) {
+        console.log('Cannot save: Last Name is required and cannot be empty');
+        return;
     }
+
+    const personJson = JSON.stringify(
+        person,
+        (key, value) =>
+            key === 'password' || key === 'passwordConfirmation'
+                ? undefined
+                : value,
+        2
+    );
+
+    localStorage.setItem(person.lastName, personJson);
+    form.reset();
 }
 
 form.addEventListener('submit', onSubmitForm);
