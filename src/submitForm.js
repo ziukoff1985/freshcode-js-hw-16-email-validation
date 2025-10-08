@@ -12,6 +12,7 @@ class Person {
 export function setupSubmitForm() {
     function onSubmitForm(event) {
         event.preventDefault();
+
         if (!getIsValidEmail()) return;
 
         const formInputs = [...document.querySelectorAll('input')].filter(

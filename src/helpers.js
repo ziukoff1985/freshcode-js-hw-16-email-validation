@@ -1,5 +1,7 @@
 /**
- * Creates an element, adds a class (or classes) and attributes (if provided), and attaches it to the parent element.
+ * Creates an element.
+ * Adds a class (or classes) and attributes (if provided).
+ * Attaches created element to the parent element.
  * @param {string} tag - The name of the tag ('div', 'input', 'button', etc.).
  * @param {string | string[]} className - The class or an array of classes.
  * @param {HTMLElement} parent - The parent element to attach the element to.
@@ -20,13 +22,14 @@ export function createElementWithClass(
             element.classList.add(className);
         }
     }
+    if (parent) {
+        parent.append(element);
+    }
     if (attributes) {
         Object.entries(attributes).forEach(([key, value]) => {
             element.setAttribute(key, value);
         });
     }
-    if (parent) {
-        parent.append(element);
-    }
+
     return element;
 }
